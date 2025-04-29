@@ -1,5 +1,13 @@
+
+import model.screen.Screen;
+import model.screen.WelcomeScreen;
+
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Screen displayedScreen = new WelcomeScreen(null);
+        while (displayedScreen != null) {
+            displayedScreen = displayedScreen.display();
+        }
     }
 }
