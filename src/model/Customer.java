@@ -17,6 +17,10 @@ public class Customer {
         this.balance = this.balance-withdrawalAmt;
     }
 
+    public void addBalance(Double transferredAmt) {
+        this.balance = this.balance+transferredAmt;
+    }
+
     public boolean isLoggedIn(String pin, String inputtedPin) {
         if (pin.equals(inputtedPin)) {
             return true;

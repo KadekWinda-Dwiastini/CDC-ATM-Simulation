@@ -1,6 +1,7 @@
 package model.screen;
 
 import model.Customer;
+import model.Util;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -9,40 +10,29 @@ import static model.Util.onlyContainsNumber;
 import static model.Util.validateDigitLength;
 
 public class WelcomeScreen extends Screen {
-    HashMap<String, Customer> customerMap;
+    Scanner scanner = new Scanner(System.in);
 
-    public WelcomeScreen(Customer customer) {
-        super(customer);
-        this.customerMap = initializeData();
-    }
-
-    private static HashMap<String, Customer> initializeData() {
-        HashMap<String, Customer> customerListMap = new HashMap<>();
-        customerListMap.put("112233", new Customer("John Doe", "012108", "112233",100));
-        customerListMap.put("112244", new Customer("Jane Doe", "932012", "112244",30));
-        return customerListMap;
+    public WelcomeScreen(Customer customer, HashMap<String, Customer> customerMap) {
+        super(customer, customerMap);
     }
 
     @Override
     public Screen display() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Account Number: ");
+        System.out.print("\nEnter Account Number: ");
         String accountNumber = scanner.nextLine();
         if (validLoginInput("Account Number", accountNumber)) {
             System.out.print("Enter PIN: ");
             String inputtedPin = scanner.nextLine();
-            if (validLoginInput("PIN", inputtedPin)) {
-                if (!customerMap.containsKey(accountNumber)) {
-                    System.out.println("Invalid Account Number/PIN");
-                    return this;
-                }
-                Customer customer = customerMap.get(accountNumber);
-                if (!customer.isLoggedIn(customer.getPin(), inputtedPin)) {
-                    System.out.println("Invalid Account Number/PIN");
-                    return this;
-                }
-                return new TransactionScreen(customer);
+            if (!validLoginInput("PIN", inputtedPin)) {
+                return this;
             }
+            if (Util.accountNumberExisted(customerMap, accountNumber)) {
+                Customer customer = customerMap.get(accountNumber);
+                if (customer.isLoggedIn(customer.getPin(), inputtedPin)) {
+                    return new TransactionScreen(customer, customerMap);
+                }
+            }
+            System.out.println("Invalid Account Number/PIN");
         }
         return this;
     }

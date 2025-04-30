@@ -1,13 +1,24 @@
 
+import model.Customer;
 import model.screen.Screen;
 import model.screen.WelcomeScreen;
+
+import java.util.HashMap;
 
 
 public class Main {
     public static void main(String[] args) {
-        Screen displayedScreen = new WelcomeScreen(null);
+        HashMap<String, Customer> customerMapData = initializeData();
+        Screen displayedScreen = new WelcomeScreen(null, customerMapData);
         while (displayedScreen != null) {
             displayedScreen = displayedScreen.display();
         }
+    }
+
+    private static HashMap<String, Customer> initializeData() {
+        HashMap<String, Customer> customerListMap = new HashMap<>();
+        customerListMap.put("112233", new Customer("John Doe", "012108", "112233",100));
+        customerListMap.put("112244", new Customer("Jane Doe", "932012", "112244",30));
+        return customerListMap;
     }
 }
