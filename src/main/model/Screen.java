@@ -1,7 +1,4 @@
-package model.screen;
-
-import model.Customer;
-import model.Displayable;
+package main.model;
 
 import java.util.HashMap;
 

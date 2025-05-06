@@ -1,7 +1,6 @@
-package model.screen;
+package main.model;
 
-import model.Customer;
-import model.Util;
+import main.Util;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -35,7 +34,7 @@ public class SummaryScreen extends Screen {
         return this;
     }
 
-    public void displaySummary() {
+    private void displaySummary() {
         System.out.println("\nSummary");
         System.out.println("Date: " + Util.getFormattedDateTime(this.transactionTimestamp));
         System.out.println("Withdraw : $" + withdrawAmt.intValue());

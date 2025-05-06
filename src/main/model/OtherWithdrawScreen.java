@@ -1,8 +1,6 @@
-package model.screen;
+package main.model;
 
-import model.Customer;
-import model.Displayable;
-import model.Util;
+import main.Util;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;

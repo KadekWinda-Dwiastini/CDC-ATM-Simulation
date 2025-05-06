@@ -1,10 +1,10 @@
+package main;
 
-import model.Customer;
-import model.screen.Screen;
-import model.screen.WelcomeScreen;
+import main.model.Customer;
+import main.model.Screen;
+import main.model.WelcomeScreen;
 
 import java.util.HashMap;
-
 
 public class Main {
     public static void main(String[] args) {

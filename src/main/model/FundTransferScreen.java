@@ -1,12 +1,9 @@
-package model.screen;
+package main.model;
 
-import model.Customer;
-import model.Util;
+import main.Util;
 
 import java.util.HashMap;
 import java.util.Scanner;
-
-import static model.Util.*;
 
 public class FundTransferScreen extends Screen {
     Scanner scanner = new Scanner(System.in);
@@ -30,11 +27,14 @@ public class FundTransferScreen extends Screen {
         System.out.println("\nPlease enter transfer amount and press enter to continue or ");
         System.out.print("type Esc to go back to Transaction: $" );
         String inputtedAmountString = scanner.nextLine();
+        if (inputtedAmountString.equalsIgnoreCase("Esc")) {
+            return new TransactionScreen(customer, customerMap);
+        }
         return displayScreen3(inputtedAccountNumber, inputtedAmountString);
     }
 
     public Screen displayScreen3(String inputtedAccountNumber, String inputtedAmountString) {
-        String referenceNumber = getRandomStringNumber();
+        String referenceNumber = Util.getRandomStringNumber();
         System.out.println("\nReference Number: " + referenceNumber );
         System.out.print("press enter to continue or type Esc to go back to transaction: " );
         String optionSelected = scanner.nextLine();
@@ -75,10 +75,10 @@ public class FundTransferScreen extends Screen {
             return returnToTransactionScreen();
         }
         double inputtedAmt = Double.parseDouble(inputtedAmountString);
-        if (Util.moreThanMaxAmt(maxTransferAmount, inputtedAmt)) {
-            System.out.println("Maximum amount to transfer is $" + (int)maxTransferAmount);
-        } else if (Util.lessThanMinAmt(minTransferAmount, inputtedAmt)) {
-            System.out.println("Minimum amount to transfer is $" + (int)minTransferAmount);
+        if (Util.moreThanMaxAmt(Util.maxTransferAmount, inputtedAmt)) {
+            System.out.println("Maximum amount to transfer is $" + (int) Util.maxTransferAmount);
+        } else if (Util.lessThanMinAmt(Util.minTransferAmount, inputtedAmt)) {
+            System.out.println("Minimum amount to transfer is $" + (int) Util.minTransferAmount);
         } else if (Util.isSufficientBalance(customer.getBalance(), inputtedAmt)) {
             customer.deductBalance(inputtedAmt);
             Customer destinationCustomer = customerMap.get(inputtedAccountNumber);

@@ -1,13 +1,10 @@
-package model.screen;
+package main.model;
 
-
-import model.Customer;
+import main.Util;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Scanner;
-
-import static model.Util.isSufficientBalance;
 
 public class WithdrawScreen extends Screen {
     Scanner scanner = new Scanner(System.in);
@@ -36,7 +33,7 @@ public class WithdrawScreen extends Screen {
     }
 
     private Screen processWithdrawal(Double amount) {
-        if (isSufficientBalance(customer.getBalance(), amount)) {
+        if (Util.isSufficientBalance(customer.getBalance(), amount)) {
             customer.deductBalance(amount);
             return new SummaryScreen(customer, customerMap, amount, LocalDateTime.now());
         }

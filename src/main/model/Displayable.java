@@ -1,6 +1,4 @@
-package model;
-
-import model.screen.Screen;
+package main.model;
 
 public interface Displayable {
     Screen display();

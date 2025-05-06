@@ -1,6 +1,4 @@
-package model.screen;
-
-import model.Customer;
+package main.model;
 
 import java.util.HashMap;
 import java.util.Scanner;

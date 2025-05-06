@@ -1,4 +1,6 @@
-package model;
+package main;
+
+import main.model.Customer;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

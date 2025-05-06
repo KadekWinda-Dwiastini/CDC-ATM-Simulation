@@ -1,4 +1,4 @@
-package model;
+package main.model;
 
 public class Customer {
     private String name;
@@ -21,8 +21,8 @@ public class Customer {
         this.balance = this.balance+transferredAmt;
     }
 
-    public boolean isLoggedIn(String pin, String inputtedPin) {
-        if (pin.equals(inputtedPin)) {
+    public boolean isLoggedIn(String inputtedPin) {
+        if (this.pin.equals(inputtedPin)) {
             return true;
         }
         return false;
@@ -30,14 +30,6 @@ public class Customer {
 
     public String getName() {
         return name;
-    }
-
-    public String getPin() {
-        return pin;
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
     }
 
     public double getBalance() {

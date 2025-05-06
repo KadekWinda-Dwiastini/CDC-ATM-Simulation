@@ -1,13 +1,10 @@
-package model.screen;
+package main.model;
 
-import model.Customer;
-import model.Util;
+import main.Util;
 
 import java.util.HashMap;
 import java.util.Scanner;
 
-import static model.Util.onlyContainsNumber;
-import static model.Util.validateDigitLength;
 
 public class WelcomeScreen extends Screen {
     Scanner scanner = new Scanner(System.in);
@@ -28,7 +25,7 @@ public class WelcomeScreen extends Screen {
             }
             if (Util.accountNumberExisted(customerMap, accountNumber)) {
                 Customer customer = customerMap.get(accountNumber);
-                if (customer.isLoggedIn(customer.getPin(), inputtedPin)) {
+                if (customer.isLoggedIn(inputtedPin)) {
                     return new TransactionScreen(customer, customerMap);
                 }
             }
@@ -38,8 +35,8 @@ public class WelcomeScreen extends Screen {
     }
 
     private boolean validLoginInput(String type, String input) {
-        if (validateDigitLength(6, input)) {
-            if (onlyContainsNumber(input)) {
+        if (Util.validateDigitLength(6, input)) {
+            if (Util.onlyContainsNumber(input)) {
                 return true;
             }
             printErrorNotContainsNumber(type);
