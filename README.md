@@ -1,4 +1,3 @@
 ﻿# CDC-ATM-Simulation
 
-Stage 1 of Mitrais Java Bootcamp
-A program which simulate the functionalities of ATM
+A program which simulate the functionalities of ATM.
