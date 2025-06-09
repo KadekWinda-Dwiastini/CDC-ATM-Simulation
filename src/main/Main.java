@@ -1,7 +1,7 @@
 package main;
 
 import main.model.Customer;
-import main.model.Screen;
+import main.model.Displayable;
 import main.model.WelcomeScreen;
 
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class Main {
     public static void main(String[] args) {
         HashMap<String, Customer> customerMapData = initializeData();
-        Screen displayedScreen = new WelcomeScreen(null, customerMapData);
+        Displayable displayedScreen = new WelcomeScreen(customerMapData);
         while (displayedScreen != null) {
             displayedScreen = displayedScreen.display();
         }

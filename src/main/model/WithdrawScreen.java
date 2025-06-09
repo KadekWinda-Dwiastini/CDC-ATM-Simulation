@@ -6,15 +6,18 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class WithdrawScreen extends Screen {
+public class WithdrawScreen implements Displayable {
+    private final Customer customer;
+    private final HashMap<String, Customer> customerMap;
     Scanner scanner = new Scanner(System.in);
 
     public WithdrawScreen(Customer customer, HashMap<String, Customer> customerMap) {
-        super(customer, customerMap);
+        this.customer = customer;
+        this.customerMap = customerMap;
     }
 
     @Override
-    public Screen display() {
+    public Displayable display() {
         System.out.println("\n1. $10");
         System.out.println("2. $50");
         System.out.println("3. $100");
@@ -32,7 +35,7 @@ public class WithdrawScreen extends Screen {
         };
     }
 
-    private Screen processWithdrawal(Double amount) {
+    private Displayable processWithdrawal(Double amount) {
         if (Util.isSufficientBalance(customer.getBalance(), amount)) {
             customer.deductBalance(amount);
             return new SummaryScreen(customer, customerMap, amount, LocalDateTime.now());

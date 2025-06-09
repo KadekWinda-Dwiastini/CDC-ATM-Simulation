@@ -6,14 +6,17 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class OtherWithdrawScreen extends Screen {
+public class OtherWithdrawScreen implements Displayable {
+    private final Customer customer;
+    private final HashMap<String, Customer> customerMap;
     Scanner scanner = new Scanner(System.in);
     public OtherWithdrawScreen(Customer customer, HashMap<String, Customer> customerMap) {
-        super(customer, customerMap);
+        this.customer = customer;
+        this.customerMap = customerMap;
     }
 
     @Override
-    public Screen display() {
+    public Displayable display() {
         System.out.println("\nOther Withdraw");
         System.out.print("Enter amount to withdraw: $");
         String withdrawAmt = scanner.nextLine();

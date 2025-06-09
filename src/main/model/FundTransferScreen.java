@@ -5,15 +5,18 @@ import main.Util;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class FundTransferScreen extends Screen {
+public class FundTransferScreen implements Displayable {
+    private final Customer customer;
+    private final HashMap<String, Customer> customerMap;
     Scanner scanner = new Scanner(System.in);
 
     public FundTransferScreen(Customer customer, HashMap<String, Customer> customerMap) {
-        super(customer, customerMap);
+        this.customer = customer;
+        this.customerMap = customerMap;
     }
 
     @Override
-    public Screen display() {
+    public Displayable display() {
         System.out.println("\nPlease enter destination account and press enter to continue or ");
         System.out.print("type Esc to go back to Transaction: ");
         String inputtedAccountNumber = scanner.nextLine();
@@ -23,7 +26,7 @@ public class FundTransferScreen extends Screen {
         return displayScreen2(inputtedAccountNumber);
     }
 
-    public Screen displayScreen2(String inputtedAccountNumber) {
+    public Displayable displayScreen2(String inputtedAccountNumber) {
         System.out.println("\nPlease enter transfer amount and press enter to continue or ");
         System.out.print("type Esc to go back to Transaction: $" );
         String inputtedAmountString = scanner.nextLine();
@@ -33,7 +36,7 @@ public class FundTransferScreen extends Screen {
         return displayScreen3(inputtedAccountNumber, inputtedAmountString);
     }
 
-    public Screen displayScreen3(String inputtedAccountNumber, String inputtedAmountString) {
+    public Displayable displayScreen3(String inputtedAccountNumber, String inputtedAmountString) {
         String referenceNumber = Util.getRandomStringNumber();
         System.out.println("\nReference Number: " + referenceNumber );
         System.out.print("press enter to continue or type Esc to go back to transaction: " );
@@ -49,7 +52,7 @@ public class FundTransferScreen extends Screen {
         return this;
     }
 
-    public Screen displayScreen4(String inputtedAccountNumber, String inputtedAmountString, String referenceNumber) {
+    public Displayable displayScreen4(String inputtedAccountNumber, String inputtedAmountString, String referenceNumber) {
         System.out.println("\nTransfer Confirmation ");
         System.out.println("Destination Account : " + inputtedAccountNumber);
         System.out.println("Transfer Amount     : $" + inputtedAmountString);
@@ -88,7 +91,7 @@ public class FundTransferScreen extends Screen {
         return returnToTransactionScreen();
     }
 
-    private Screen returnToTransactionScreen() {
+    private Displayable returnToTransactionScreen() {
         return new TransactionScreen(customer, customerMap);
     }
 }

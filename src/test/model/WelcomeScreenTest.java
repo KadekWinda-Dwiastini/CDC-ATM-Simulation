@@ -16,7 +16,7 @@ public class WelcomeScreenTest extends TestCase {
         String input = "112233\n012108";
         provideInput(input);
         HashMap<String, Customer> customerMap = getCustomerMap();
-        WelcomeScreen welcomeScreen = new WelcomeScreen(null, customerMap);
+        WelcomeScreen welcomeScreen = new WelcomeScreen(customerMap);
         Assert.assertTrue(welcomeScreen.display() instanceof TransactionScreen);
     }
 
@@ -24,7 +24,7 @@ public class WelcomeScreenTest extends TestCase {
         String input = "1122";
         provideInput(input);
         HashMap<String, Customer> customerMap = getCustomerMap();
-        WelcomeScreen welcomeScreen = new WelcomeScreen(null, customerMap);
+        WelcomeScreen welcomeScreen = new WelcomeScreen(customerMap);
         Assert.assertTrue(welcomeScreen.display() instanceof WelcomeScreen);
     }
 
@@ -32,7 +32,7 @@ public class WelcomeScreenTest extends TestCase {
         String input = "112233\n1sa";
         provideInput(input);
         HashMap<String, Customer> customerMap = getCustomerMap();
-        WelcomeScreen welcomeScreen = new WelcomeScreen(null, customerMap);
+        WelcomeScreen welcomeScreen = new WelcomeScreen(customerMap);
         Assert.assertTrue(welcomeScreen.display() instanceof WelcomeScreen);
     }
 
@@ -40,7 +40,7 @@ public class WelcomeScreenTest extends TestCase {
         String input = "112233\npasswr";
         provideInput(input);
         HashMap<String, Customer> customerMap = getCustomerMap();
-        WelcomeScreen welcomeScreen = new WelcomeScreen(null, customerMap);
+        WelcomeScreen welcomeScreen = new WelcomeScreen(customerMap);
         Assert.assertTrue(welcomeScreen.display() instanceof WelcomeScreen);
     }
 
@@ -48,7 +48,7 @@ public class WelcomeScreenTest extends TestCase {
         String input = "112233\n111111";
         provideInput(input);
         HashMap<String, Customer> customerMap = getCustomerMap();
-        WelcomeScreen welcomeScreen = new WelcomeScreen(null, customerMap);
+        WelcomeScreen welcomeScreen = new WelcomeScreen(customerMap);
         Assert.assertTrue(welcomeScreen.display() instanceof WelcomeScreen);
     }
 

@@ -6,18 +6,21 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class SummaryScreen extends Screen {
+public class SummaryScreen implements Displayable {
+    private final Customer customer;
+    private final HashMap<String, Customer> customerMap;
     Double withdrawAmt = 0d;
     LocalDateTime transactionTimestamp;
     Scanner scanner = new Scanner(System.in);
     public SummaryScreen(Customer customer, HashMap<String, Customer> customerMap, Double withdrawAmt, LocalDateTime timestamp) {
-        super(customer, customerMap);
+        this.customer = customer;
+        this.customerMap = customerMap;
         this.withdrawAmt = withdrawAmt;
         this.transactionTimestamp = timestamp;
     }
 
     @Override
-    public Screen display() {
+    public Displayable display() {
         displaySummary();
         System.out.println("1. Transaction");
         System.out.println("2. Exit");
@@ -28,7 +31,7 @@ public class SummaryScreen extends Screen {
                 return new TransactionScreen(customer, customerMap);
             }
             case 2 -> {
-                return new WelcomeScreen(customer, customerMap);
+                return new WelcomeScreen(customerMap);
             }
         }
         return this;

@@ -6,15 +6,16 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 
-public class WelcomeScreen extends Screen {
+public class WelcomeScreen implements Displayable {
+    private final HashMap<String, Customer> customerMap;
     Scanner scanner = new Scanner(System.in);
 
-    public WelcomeScreen(Customer customer, HashMap<String, Customer> customerMap) {
-        super(customer, customerMap);
+    public WelcomeScreen(HashMap<String, Customer> customerMap) {
+        this.customerMap = customerMap;
     }
 
     @Override
-    public Screen display() {
+    public Displayable display() {
         System.out.print("\nEnter Account Number: ");
         String accountNumber = scanner.nextLine();
         if (validLoginInput("Account Number", accountNumber)) {
