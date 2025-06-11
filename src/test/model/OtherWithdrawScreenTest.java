@@ -9,14 +9,17 @@ import main.model.WithdrawScreen;
 
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class OtherWithdrawScreenTest extends TestCase {
+
+    Scanner scanner = new Scanner(System.in);
 
     public void testDisplayInsufficientBalance() {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "200";
         provideInput(input);
-        OtherWithdrawScreen otherWithdrawScreen = new OtherWithdrawScreen(customerMap.get("112233"), customerMap);
+        OtherWithdrawScreen otherWithdrawScreen = OtherWithdrawScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(otherWithdrawScreen.display() instanceof WithdrawScreen);
     }
 
@@ -24,7 +27,7 @@ public class OtherWithdrawScreenTest extends TestCase {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "70";
         provideInput(input);
-        OtherWithdrawScreen otherWithdrawScreen = new OtherWithdrawScreen(customerMap.get("112233"), customerMap);
+        OtherWithdrawScreen otherWithdrawScreen = OtherWithdrawScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(otherWithdrawScreen.display() instanceof SummaryScreen);
     }
 

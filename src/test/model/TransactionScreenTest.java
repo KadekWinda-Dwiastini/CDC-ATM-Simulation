@@ -6,14 +6,16 @@ import main.model.*;
 
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class TransactionScreenTest extends TestCase {
 
+    Scanner scanner = new Scanner(System.in);
     public void testDisplayWithdrawScreen() {
         String input = "1";
         provideInput(input);
         HashMap<String, Customer> customerMap = getCustomerMap();
-        TransactionScreen transactionScreen = new TransactionScreen(customerMap.get("112233"), customerMap);
+        TransactionScreen transactionScreen = TransactionScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(transactionScreen.display() instanceof WithdrawScreen);
     }
 
@@ -21,7 +23,7 @@ public class TransactionScreenTest extends TestCase {
         String input = "2";
         provideInput(input);
         HashMap<String, Customer> customerMap = getCustomerMap();
-        TransactionScreen transactionScreen = new TransactionScreen(customerMap.get("112233"), customerMap);
+        TransactionScreen transactionScreen = TransactionScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(transactionScreen.display() instanceof FundTransferScreen);
     }
 
@@ -29,7 +31,7 @@ public class TransactionScreenTest extends TestCase {
         String input = "3";
         provideInput(input);
         HashMap<String, Customer> customerMap = getCustomerMap();
-        TransactionScreen transactionScreen = new TransactionScreen(customerMap.get("112233"), customerMap);
+        TransactionScreen transactionScreen = TransactionScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(transactionScreen.display() instanceof WelcomeScreen);
     }
 
@@ -37,7 +39,7 @@ public class TransactionScreenTest extends TestCase {
         String input = "4";
         provideInput(input);
         HashMap<String, Customer> customerMap = getCustomerMap();
-        TransactionScreen transactionScreen = new TransactionScreen(customerMap.get("112233"), customerMap);
+        TransactionScreen transactionScreen = TransactionScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(transactionScreen.display() instanceof TransactionScreen);
     }
 

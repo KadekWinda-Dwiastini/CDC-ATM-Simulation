@@ -9,13 +9,16 @@ import main.model.TransactionScreen;
 
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class FundTransferScreenTest extends TestCase {
+    Scanner scanner = new Scanner(System.in);
+
     public void testDisplayEsc() {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "Esc";
         provideInput(input);
-        FundTransferScreen fundTransferScreen = new FundTransferScreen(customerMap.get("112233"), customerMap);
+        FundTransferScreen fundTransferScreen = FundTransferScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(fundTransferScreen.display() instanceof TransactionScreen);
     }
 
@@ -23,7 +26,7 @@ public class FundTransferScreenTest extends TestCase {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "112233\nEsc";
         provideInput(input);
-        FundTransferScreen fundTransferScreen = new FundTransferScreen(customerMap.get("112233"), customerMap);
+        FundTransferScreen fundTransferScreen = FundTransferScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(fundTransferScreen.display() instanceof TransactionScreen);
     }
 
@@ -31,7 +34,7 @@ public class FundTransferScreenTest extends TestCase {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "112233\n100\nEsc";
         provideInput(input);
-        FundTransferScreen fundTransferScreen = new FundTransferScreen(customerMap.get("112233"), customerMap);
+        FundTransferScreen fundTransferScreen = FundTransferScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(fundTransferScreen.display() instanceof TransactionScreen);
     }
 
@@ -39,7 +42,7 @@ public class FundTransferScreenTest extends TestCase {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "112233\n100\n11";
         provideInput(input);
-        FundTransferScreen fundTransferScreen = new FundTransferScreen(customerMap.get("112233"), customerMap);
+        FundTransferScreen fundTransferScreen = FundTransferScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(fundTransferScreen.display() instanceof FundTransferScreen);
     }
 
@@ -47,7 +50,7 @@ public class FundTransferScreenTest extends TestCase {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "112233\n100\n\n\n2";
         provideInput(input);
-        FundTransferScreen fundTransferScreen = new FundTransferScreen(customerMap.get("112233"), customerMap);
+        FundTransferScreen fundTransferScreen = FundTransferScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(fundTransferScreen.display() instanceof TransactionScreen);
     }
 
@@ -55,7 +58,7 @@ public class FundTransferScreenTest extends TestCase {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "112233\n100\n\n\n3";
         provideInput(input);
-        FundTransferScreen fundTransferScreen = new FundTransferScreen(customerMap.get("112233"), customerMap);
+        FundTransferScreen fundTransferScreen = FundTransferScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(fundTransferScreen.display() instanceof FundTransferScreen);
     }
 
@@ -63,7 +66,7 @@ public class FundTransferScreenTest extends TestCase {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "112266\n100\n\n\n1";
         provideInput(input);
-        FundTransferScreen fundTransferScreen = new FundTransferScreen(customerMap.get("112233"), customerMap);
+        FundTransferScreen fundTransferScreen = FundTransferScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(fundTransferScreen.display() instanceof TransactionScreen);
     }
 
@@ -71,7 +74,7 @@ public class FundTransferScreenTest extends TestCase {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "112244\nasa\n\n\n1";
         provideInput(input);
-        FundTransferScreen fundTransferScreen = new FundTransferScreen(customerMap.get("112233"), customerMap);
+        FundTransferScreen fundTransferScreen = FundTransferScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(fundTransferScreen.display() instanceof TransactionScreen);
     }
 
@@ -79,7 +82,7 @@ public class FundTransferScreenTest extends TestCase {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "112244\n2000\n\n\n1";
         provideInput(input);
-        FundTransferScreen fundTransferScreen = new FundTransferScreen(customerMap.get("112233"), customerMap);
+        FundTransferScreen fundTransferScreen = FundTransferScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(fundTransferScreen.display() instanceof TransactionScreen);
     }
 
@@ -87,7 +90,7 @@ public class FundTransferScreenTest extends TestCase {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "112244\n0\n\n\n1";
         provideInput(input);
-        FundTransferScreen fundTransferScreen = new FundTransferScreen(customerMap.get("112233"), customerMap);
+        FundTransferScreen fundTransferScreen = FundTransferScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(fundTransferScreen.display() instanceof TransactionScreen);
     }
 
@@ -95,7 +98,7 @@ public class FundTransferScreenTest extends TestCase {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "112244\n200\n\n\n1";
         provideInput(input);
-        FundTransferScreen fundTransferScreen = new FundTransferScreen(customerMap.get("112233"), customerMap);
+        FundTransferScreen fundTransferScreen = FundTransferScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(fundTransferScreen.display() instanceof TransactionScreen);
     }
 
@@ -103,7 +106,7 @@ public class FundTransferScreenTest extends TestCase {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "112244\n80\n\n\n1";
         provideInput(input);
-        FundTransferScreen fundTransferScreen = new FundTransferScreen(customerMap.get("112233"), customerMap);
+        FundTransferScreen fundTransferScreen = FundTransferScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(fundTransferScreen.display() instanceof FundTransferSummaryScreen);
     }
 

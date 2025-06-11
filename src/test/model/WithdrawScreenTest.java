@@ -6,14 +6,16 @@ import main.model.*;
 
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class WithdrawScreenTest extends TestCase {
+    Scanner scanner = new Scanner(System.in);
 
     public void testDisplayWithdraw10d() {
         String input = "1";
         provideInput(input);
         HashMap<String, Customer> customerMap = getCustomerMap();
-        WithdrawScreen withdrawScreen = new WithdrawScreen(customerMap.get("112233"), customerMap);
+        WithdrawScreen withdrawScreen = WithdrawScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(withdrawScreen.display() instanceof SummaryScreen);
     }
 
@@ -21,7 +23,7 @@ public class WithdrawScreenTest extends TestCase {
         String input = "2";
         provideInput(input);
         HashMap<String, Customer> customerMap = getCustomerMap();
-        WithdrawScreen withdrawScreen = new WithdrawScreen(customerMap.get("112233"), customerMap);
+        WithdrawScreen withdrawScreen = WithdrawScreen.getInstance(scanner, customerMap.get("112233"), customerMap);
         Assert.assertTrue(withdrawScreen.display() instanceof SummaryScreen);
     }
 
@@ -29,7 +31,7 @@ public class WithdrawScreenTest extends TestCase {
         String input = "3";
         provideInput(input);
         HashMap<String, Customer> customerMap = getCustomerMap();
-        WithdrawScreen withdrawScreen = new WithdrawScreen(customerMap.get("112233"), customerMap);
+        WithdrawScreen withdrawScreen = WithdrawScreen.getInstance(scanner,customerMap.get("112233"), customerMap);
         Assert.assertTrue(withdrawScreen.display() instanceof SummaryScreen);
     }
 
@@ -37,7 +39,7 @@ public class WithdrawScreenTest extends TestCase {
         String input = "4";
         provideInput(input);
         HashMap<String, Customer> customerMap = getCustomerMap();
-        WithdrawScreen withdrawScreen = new WithdrawScreen(customerMap.get("112233"), customerMap);
+        WithdrawScreen withdrawScreen = WithdrawScreen.getInstance(scanner,customerMap.get("112233"), customerMap);
         Assert.assertTrue(withdrawScreen.display() instanceof OtherWithdrawScreen);
     }
 
@@ -45,7 +47,7 @@ public class WithdrawScreenTest extends TestCase {
         String input = "5";
         provideInput(input);
         HashMap<String, Customer> customerMap = getCustomerMap();
-        WithdrawScreen withdrawScreen = new WithdrawScreen(customerMap.get("112233"), customerMap);
+        WithdrawScreen withdrawScreen = WithdrawScreen.getInstance(scanner,customerMap.get("112233"), customerMap);
         Assert.assertTrue(withdrawScreen.display() instanceof TransactionScreen);
     }
 
@@ -53,7 +55,7 @@ public class WithdrawScreenTest extends TestCase {
         String input = "6";
         provideInput(input);
         HashMap<String, Customer> customerMap = getCustomerMap();
-        WithdrawScreen withdrawScreen = new WithdrawScreen(customerMap.get("112233"), customerMap);
+        WithdrawScreen withdrawScreen = WithdrawScreen.getInstance(scanner,customerMap.get("112233"), customerMap);
         Assert.assertTrue(withdrawScreen.display() instanceof WithdrawScreen);
     }
 
@@ -61,7 +63,7 @@ public class WithdrawScreenTest extends TestCase {
         String input = "3";
         provideInput(input);
         HashMap<String, Customer> customerMap = getCustomerMap();
-        WithdrawScreen withdrawScreen = new WithdrawScreen(customerMap.get("112244"), customerMap);
+        WithdrawScreen withdrawScreen = WithdrawScreen.getInstance(scanner,customerMap.get("112244"), customerMap);
         Assert.assertTrue(withdrawScreen.display() instanceof WithdrawScreen);
     }
 

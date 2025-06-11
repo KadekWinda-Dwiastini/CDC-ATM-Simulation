@@ -8,10 +8,19 @@ import java.util.Scanner;
 
 public class WelcomeScreen implements Displayable {
     private final HashMap<String, Customer> customerMap;
-    Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
+    private static WelcomeScreen instance;
 
-    public WelcomeScreen(HashMap<String, Customer> customerMap) {
+    private WelcomeScreen(Scanner scanner, HashMap<String, Customer> customerMap) {
         this.customerMap = customerMap;
+        this.scanner = scanner;
+    }
+
+    public static WelcomeScreen getInstance(Scanner scanner) {
+        if (instance == null) {
+            instance = new WelcomeScreen(scanner, initializeCustomerData());
+        }
+        return instance;
     }
 
     @Override
@@ -27,7 +36,7 @@ public class WelcomeScreen implements Displayable {
             if (Util.accountNumberExisted(customerMap, accountNumber)) {
                 Customer customer = customerMap.get(accountNumber);
                 if (customer.isLoggedIn(inputtedPin)) {
-                    return new TransactionScreen(customer, customerMap);
+                    return TransactionScreen.getInstance(scanner, customer, customerMap);
                 }
             }
             System.out.println("Invalid Account Number/PIN");
@@ -45,6 +54,13 @@ public class WelcomeScreen implements Displayable {
         }
         printLengthError(type);
         return false;
+    }
+
+    private static HashMap<String, Customer> initializeCustomerData() {
+        HashMap<String, Customer> customerListMap = new HashMap<>();
+        customerListMap.put("112233", new Customer("John Doe", "012108", "112233",100));
+        customerListMap.put("112244", new Customer("Jane Doe", "932012", "112244",30));
+        return customerListMap;
     }
 
     private void printErrorNotContainsNumber(String obj) {

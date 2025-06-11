@@ -6,14 +6,16 @@ import main.model.*;
 
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class FundTransferSummaryScreenTest extends TestCase {
+    Scanner scanner = new Scanner(System.in);
 
     public void testDisplayTransaction() {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "1";
         provideInput(input);
-        FundTransferSummaryScreen fundTransferSummaryScreen = new FundTransferSummaryScreen(customerMap.get("112233"), customerMap, "112244", 50d, "123456");
+        FundTransferSummaryScreen fundTransferSummaryScreen = FundTransferSummaryScreen.getInstance(scanner, customerMap.get("112233"), customerMap, "112244", 50d, "123456");
         Assert.assertTrue(fundTransferSummaryScreen.display() instanceof TransactionScreen);
     }
 
@@ -21,7 +23,7 @@ public class FundTransferSummaryScreenTest extends TestCase {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "2";
         provideInput(input);
-        FundTransferSummaryScreen fundTransferSummaryScreen = new FundTransferSummaryScreen(customerMap.get("112233"), customerMap, "112244", 50d, "123456");
+        FundTransferSummaryScreen fundTransferSummaryScreen = FundTransferSummaryScreen.getInstance(scanner, customerMap.get("112233"), customerMap, "112244", 50d, "123456");
         Assert.assertTrue(fundTransferSummaryScreen.display() instanceof WelcomeScreen);
     }
 
@@ -29,7 +31,7 @@ public class FundTransferSummaryScreenTest extends TestCase {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "10";
         provideInput(input);
-        FundTransferSummaryScreen fundTransferSummaryScreen = new FundTransferSummaryScreen(customerMap.get("112233"), customerMap, "112244", 50d, "123456");
+        FundTransferSummaryScreen fundTransferSummaryScreen = FundTransferSummaryScreen.getInstance(scanner, customerMap.get("112233"), customerMap, "112244", 50d, "123456");
         Assert.assertTrue(fundTransferSummaryScreen.display() instanceof FundTransferSummaryScreen);
     }
 

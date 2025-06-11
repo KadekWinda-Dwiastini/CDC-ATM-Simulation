@@ -10,14 +10,16 @@ import main.model.WelcomeScreen;
 import java.io.ByteArrayInputStream;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class SummaryScreenTest extends TestCase {
 
+    Scanner scanner = new Scanner(System.in);
     public void testDisplay() {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "1";
         provideInput(input);
-        SummaryScreen summaryScreen = new SummaryScreen(customerMap.get("112233"), customerMap, 100d, LocalDateTime.now());
+        SummaryScreen summaryScreen = SummaryScreen.getInstance(scanner, customerMap.get("112233"), customerMap, 100d, LocalDateTime.now());
         Assert.assertTrue(summaryScreen.display() instanceof TransactionScreen);;
     }
 
@@ -25,7 +27,7 @@ public class SummaryScreenTest extends TestCase {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "2";
         provideInput(input);
-        SummaryScreen summaryScreen = new SummaryScreen(customerMap.get("112233"), customerMap, 100d, LocalDateTime.now());
+        SummaryScreen summaryScreen = SummaryScreen.getInstance(scanner, customerMap.get("112233"), customerMap, 100d, LocalDateTime.now());
         Assert.assertTrue(summaryScreen.display() instanceof WelcomeScreen);;
     }
 
@@ -33,7 +35,7 @@ public class SummaryScreenTest extends TestCase {
         HashMap<String, Customer> customerMap = getCustomerMap();
         String input = "3";
         provideInput(input);
-        SummaryScreen summaryScreen = new SummaryScreen(customerMap.get("112233"), customerMap, 100d, LocalDateTime.now());
+        SummaryScreen summaryScreen = SummaryScreen.getInstance(scanner, customerMap.get("112233"), customerMap, 100d, LocalDateTime.now());
         Assert.assertTrue(summaryScreen.display() instanceof SummaryScreen);;
     }
 

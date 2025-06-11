@@ -6,13 +6,28 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class FundTransferScreen implements Displayable {
-    private final Customer customer;
+    private Customer customer;
     private final HashMap<String, Customer> customerMap;
-    Scanner scanner = new Scanner(System.in);
+    Scanner scanner;
+    private static FundTransferScreen instance;
 
-    public FundTransferScreen(Customer customer, HashMap<String, Customer> customerMap) {
+    public FundTransferScreen(Scanner scanner, Customer customer, HashMap<String, Customer> customerMap) {
         this.customer = customer;
         this.customerMap = customerMap;
+        this.scanner = scanner;
+    }
+
+    public static FundTransferScreen getInstance(Scanner scanner, Customer customer, HashMap<String, Customer> customerMap) {
+        if (instance == null) {
+            instance = new FundTransferScreen(scanner, customer, customerMap);
+        } else {
+            instance.modifyData(customer);
+        }
+        return instance;
+    }
+
+    private void modifyData(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
@@ -21,7 +36,7 @@ public class FundTransferScreen implements Displayable {
         System.out.print("type Esc to go back to Transaction: ");
         String inputtedAccountNumber = scanner.nextLine();
         if (inputtedAccountNumber.equalsIgnoreCase("Esc")) {
-            return new TransactionScreen(customer, customerMap);
+            return TransactionScreen.getInstance(scanner, customer, customerMap);
         }
         return displayScreen2(inputtedAccountNumber);
     }
@@ -31,7 +46,7 @@ public class FundTransferScreen implements Displayable {
         System.out.print("type Esc to go back to Transaction: $" );
         String inputtedAmountString = scanner.nextLine();
         if (inputtedAmountString.equalsIgnoreCase("Esc")) {
-            return new TransactionScreen(customer, customerMap);
+            return TransactionScreen.getInstance(scanner, customer, customerMap);
         }
         return displayScreen3(inputtedAccountNumber, inputtedAmountString);
     }
@@ -46,7 +61,7 @@ public class FundTransferScreen implements Displayable {
                 return displayScreen4(inputtedAccountNumber, inputtedAmountString, referenceNumber);
             }
             case "Esc" -> {
-                return new TransactionScreen(customer, customerMap);
+                return TransactionScreen.getInstance(scanner, customer, customerMap);
             }
         }
         return this;
@@ -63,8 +78,9 @@ public class FundTransferScreen implements Displayable {
         System.out.print("Choose option[2]: " );
 
         int selectedOpt = scanner.nextInt();
+        scanner.nextLine();
         if (selectedOpt == 2) {
-            return new TransactionScreen(customer, customerMap);
+            return TransactionScreen.getInstance(scanner, customer, customerMap);
         } else if (selectedOpt != 1) {
             return this;
         }
@@ -86,12 +102,12 @@ public class FundTransferScreen implements Displayable {
             customer.deductBalance(inputtedAmt);
             Customer destinationCustomer = customerMap.get(inputtedAccountNumber);
             destinationCustomer.addBalance(inputtedAmt);
-            return new FundTransferSummaryScreen(customer, customerMap, inputtedAccountNumber, inputtedAmt, referenceNumber);
+            return FundTransferSummaryScreen.getInstance(scanner, customer, customerMap, inputtedAccountNumber, inputtedAmt, referenceNumber);
         }
         return returnToTransactionScreen();
     }
 
     private Displayable returnToTransactionScreen() {
-        return new TransactionScreen(customer, customerMap);
+        return TransactionScreen.getInstance(scanner, customer, customerMap);
     }
 }

@@ -7,13 +7,28 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class WithdrawScreen implements Displayable {
-    private final Customer customer;
+    private Customer customer;
     private final HashMap<String, Customer> customerMap;
-    Scanner scanner = new Scanner(System.in);
+    Scanner scanner;
+    private static WithdrawScreen instance;
 
-    public WithdrawScreen(Customer customer, HashMap<String, Customer> customerMap) {
+    private WithdrawScreen(Scanner scanner, Customer customer, HashMap<String, Customer> customerMap) {
         this.customer = customer;
         this.customerMap = customerMap;
+        this.scanner = scanner;
+    }
+
+    public static WithdrawScreen getInstance(Scanner scanner, Customer customer, HashMap<String, Customer> customerMap) {
+        if (instance == null) {
+            instance = new WithdrawScreen(scanner, customer, customerMap);
+        } else {
+            instance.modifyCustomer(customer);
+        }
+        return instance;
+    }
+
+    private void modifyCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
@@ -25,12 +40,13 @@ public class WithdrawScreen implements Displayable {
         System.out.println("5. Back");
         System.out.print("Please choose option[5]: ");
         int selectedOpt = scanner.nextInt();
+        scanner.nextLine();
         return switch (selectedOpt) {
             case 1 -> processWithdrawal(10d);
             case 2 -> processWithdrawal(50d);
             case 3 -> processWithdrawal(100d);
-            case 4 -> new OtherWithdrawScreen(customer, customerMap);
-            case 5 -> new TransactionScreen(customer, customerMap);
+            case 4 -> OtherWithdrawScreen.getInstance(scanner, customer, customerMap);
+            case 5 -> TransactionScreen.getInstance(scanner, customer, customerMap);
             default -> this;
         };
     }
@@ -38,7 +54,7 @@ public class WithdrawScreen implements Displayable {
     private Displayable processWithdrawal(Double amount) {
         if (Util.isSufficientBalance(customer.getBalance(), amount)) {
             customer.deductBalance(amount);
-            return new SummaryScreen(customer, customerMap, amount, LocalDateTime.now());
+            return SummaryScreen.getInstance(scanner, customer, customerMap, amount, LocalDateTime.now());
         }
         return this;
     }

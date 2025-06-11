@@ -7,12 +7,28 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class OtherWithdrawScreen implements Displayable {
-    private final Customer customer;
+    private Customer customer;
     private final HashMap<String, Customer> customerMap;
-    Scanner scanner = new Scanner(System.in);
-    public OtherWithdrawScreen(Customer customer, HashMap<String, Customer> customerMap) {
+    Scanner scanner;
+    private static OtherWithdrawScreen instance;
+
+    private OtherWithdrawScreen(Scanner scanner, Customer customer, HashMap<String, Customer> customerMap) {
         this.customer = customer;
         this.customerMap = customerMap;
+        this.scanner = scanner;
+    }
+
+    public static OtherWithdrawScreen getInstance(Scanner scanner, Customer customer, HashMap<String, Customer> customerMap) {
+        if (instance == null) {
+            instance = new OtherWithdrawScreen(scanner, customer, customerMap);
+        } else {
+            instance.modifyData(customer);
+        }
+        return instance;
+    }
+
+    private void modifyData(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
@@ -23,8 +39,8 @@ public class OtherWithdrawScreen implements Displayable {
         if (Util.validWithdrawalAmt(withdrawAmt, customer.getBalance())) {
             double withdrawAmtDouble = Double.parseDouble(withdrawAmt);
             customer.deductBalance(withdrawAmtDouble);
-            return new SummaryScreen(customer, customerMap, withdrawAmtDouble, LocalDateTime.now());
+            return SummaryScreen.getInstance(scanner, customer, customerMap, withdrawAmtDouble, LocalDateTime.now());
         };
-        return new WithdrawScreen(customer, customerMap);
+        return WithdrawScreen.getInstance(scanner, customer, customerMap);
     }
 }
